@@ -11,8 +11,9 @@ public class CalculatorServiceTest {
   @Test
   public void testCalculateAddition() {
     Calculation calculation = new Addition();
+    Calculation calculation1 = ((num1, num2) -> num1 + num2);
 
-    final int actual = calculation.calculate(1, 1);
+    final int actual = calculation1.calculate(1, 1);
 
     assertThat(actual).isEqualTo(2);
   }
