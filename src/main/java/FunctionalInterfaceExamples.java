@@ -1,3 +1,4 @@
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -15,6 +16,15 @@ public class FunctionalInterfaceExamples {
     final Function<Integer, Integer> identity = Function.identity();
 
     System.out.println(identity.apply(999));
+
+    final Consumer<String> print = value -> System.out.println(value);
+    final Consumer<String> greetings = value -> System.out.println("Hello " + value);
+
+    // Return 값이 없기때문에 Function type 으로는 만들 수 가 없음
+//    final Function<String, Void> print2 = value -> System.out.println(value);
+
+    greetings.accept("Leo");
+    print.accept("test");
   }
 
 }
