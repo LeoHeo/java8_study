@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 /**
  * @author Heo, Jin Han
@@ -64,6 +66,57 @@ public class FunctionalInterfaceExamples {
 
     System.out.println("filter lambda less than 3 integers" + filter(numbers, i -> i > 0));
     System.out.println("filter lambda less than 3 integers" + filter(numbers, i -> i < 3));
+
+    // Supplier을 사용하면 Lazy evaluation을 사용할 수가 있다
+
+    final Supplier<String> helloSupplier = () -> "Hello ";
+
+    System.out.println(helloSupplier.get() + "World");
+
+    long start = System.currentTimeMillis();
+    printIfValidIndex(0, getVeryExpensiveValue()); // value가 필요하다.
+    printIfValidIndex(-1, getVeryExpensiveValue()); // value 필요없다.
+    printIfValidIndex(-2, getVeryExpensiveValue()); // value 필요없다.
+
+    // 2번째와 3번째는 필요가 없는데 9초가 걸린다.
+    System.out.println("It took " + (System.currentTimeMillis() - start) / 1000 + " seconds");
+
+    // Supplier Refactoring
+    long supplierStart = System.currentTimeMillis();
+    System.out.println("=============================================");
+    printIfValidIndexSupplier(0, () -> getVeryExpensiveValue()); // value가 필요하다.
+    printIfValidIndexSupplier(-1, () ->getVeryExpensiveValue()); // value 필요없다.
+    printIfValidIndexSupplier(-2, () ->getVeryExpensiveValue()); // value 필요없다.
+
+    // Lazy evaluation이 되서 3초만 걸린다.
+    System.out.println("It took " + (System.currentTimeMillis() - supplierStart) / 1000 + " seconds");
+
+  }
+
+  private static String getVeryExpensiveValue() {
+    try {
+      TimeUnit.SECONDS.sleep(3);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    // Let's just say it has very expensive calculation here!
+    return "Kevin";
+  }
+
+  private static void printIfValidIndex(int num, String value) {
+    if (num >= 0) {
+      System.out.println("The value is " + value + ".");
+    } else {
+      System.out.println("Invalid");
+    }
+  }
+
+  private static void printIfValidIndexSupplier(int num, Supplier<String> valueSupplier) {
+    if (num >= 0) {
+      System.out.println("The value is " + valueSupplier.get() + ".");
+    } else {
+      System.out.println("Invalid");
+    }
   }
 
   private static <T> List<T> filter(List<T> list, Predicate<T> filter) {
