@@ -84,9 +84,9 @@ public class FunctionalInterfaceExamples {
     // Supplier Refactoring
     long supplierStart = System.currentTimeMillis();
     System.out.println("=============================================");
-    printIfValidIndexSupplier(0, () -> getVeryExpensiveValue()); // value가 필요하다.
-    printIfValidIndexSupplier(-1, () ->getVeryExpensiveValue()); // value 필요없다.
-    printIfValidIndexSupplier(-2, () ->getVeryExpensiveValue()); // value 필요없다.
+    printIfValidIndex(0, () -> getVeryExpensiveValue()); // value가 필요하다.
+    printIfValidIndex(-1, () ->getVeryExpensiveValue()); // value 필요없다.
+    printIfValidIndex(-2, () ->getVeryExpensiveValue()); // value 필요없다.
 
     // Lazy evaluation이 되서 3초만 걸린다.
     System.out.println("It took " + (System.currentTimeMillis() - supplierStart) / 1000 + " seconds");
@@ -111,7 +111,7 @@ public class FunctionalInterfaceExamples {
     }
   }
 
-  private static void printIfValidIndexSupplier(int num, Supplier<String> valueSupplier) {
+  private static void printIfValidIndex(int num, Supplier<String> valueSupplier) {
     if (num >= 0) {
       System.out.println("The value is " + valueSupplier.get() + ".");
     } else {
