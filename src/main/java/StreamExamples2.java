@@ -33,15 +33,26 @@ public class StreamExamples2 {
     // 20일때는 NullPointException
     System.out.println("Imperative Result: " + result.toString());
 
+    // Stream
+    // Intermediate Operation Method -> 중간단계에 해당하는 오퍼레이션
+    // Terminal Operation Method -> 끝내는 오퍼레이션
+
+    // Intermediate Operation Method는 Stream을 리턴하기 때문에
+    // 계속 Method Chaining을 통해서 무엇을 해야할지 스트림에게 지시할 수 있다.
+
+    // Terminal Operation Method을 호출할때
+    // 그전까지 있었던 Intermediate Operation Method의 연산들을 한다.
+
     // 효율적으로 Lazy하게 처리하기 때문에 효율적
     System.out.println("Functional Result: " +
       numbers.stream()
-            .filter(number -> number > 3)
-            .filter(number -> number < 9)
-            .map(number -> number * 2)
-            .filter(number -> number > 10)
-            .findFirst()
+            .filter(number -> number > 3) // Intermediate Operation Method
+            .filter(number -> number < 9) // Intermediate Operation Method
+            .map(number -> number * 2)    // Intermediate Operation Method
+            .filter(number -> number > 10) // Intermediate Operation Method
+            .findFirst()                  // Terminal Operation Method
     );
+
   }
 
 }
