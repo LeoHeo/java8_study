@@ -46,6 +46,7 @@ public class Singleton {
     System.out.println("LazySingleton");
     System.out.println();
 
+
     // NAME에 접근할때는 인스턴스를 생성하지 않는다.
     //
     final String lazyName = LazySingleton.NAME;
@@ -54,6 +55,15 @@ public class Singleton {
     final LazySingleton lazySingleton1 = LazySingleton.getInstance();
     final LazySingleton lazySingleton2 = LazySingleton.getInstance();
     System.out.println("lazySingleton1 == lazySingleton2: " + (lazySingleton1 == lazySingleton2));
+
+    System.out.println("=====================================");
+    System.out.println("NewSingleton");
+    System.out.println();
+
+    // 권장하는 방법
+    final NewSingleton newSingleton1 = NewSingleton.INSTANCE;
+    final NewSingleton newSingleton2 = NewSingleton.INSTANCE;
+    System.out.println("newSingleton1 == newSingleton2: " + (newSingleton1 == newSingleton2));
   }
 }
 
@@ -95,6 +105,15 @@ class LazySingleton {
   public static LazySingleton getInstance() {
     return LazySingletonHolder.INSTANCE;
   }
+
+  public void greet(final String name) {
+    System.out.println(name);
+  }
+}
+
+enum NewSingleton {
+
+  INSTANCE;
 
   public void greet(final String name) {
     System.out.println(name);
